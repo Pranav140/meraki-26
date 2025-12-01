@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,12 +8,31 @@ const Navbar = () => {
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <motion.nav
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="fixed top-0 left-0 w-full z-50 py-6 px-8 flex justify-between items-center bg-gradient-to-b from-black/60 to-transparent"
+            className={`fixed top-0 left-0 w-full z-50 py-6 px-8 flex justify-between items-center transition-colors duration-150
+                ${
+        isScrolled
+            ? "bg-black/80 backdrop-blur-md border-b border-white/40"  
+            : "bg-gradient-to-b from-black/60 to-transparent "                 }`}
         >
             <Link to="/" className="text-white font-minecraft text-xl md:text-2xl tracking-wider flex items-center gap-3 hover:text-accent-400 transition-colors duration-300 cursor-pointer">
                 <span className="text-accent-400 text-sm animate-pulse">►</span>
