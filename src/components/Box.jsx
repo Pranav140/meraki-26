@@ -1,50 +1,67 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 
 export default function Box({ question, answer, isOpen, onToggle }) {
-  const contentRef = useRef(null);
-  const [maxH, setMaxH] = useState("0px");
-
-  useEffect(() => {
-    if (!contentRef.current) return;
-    if (isOpen) {
-      const sh = contentRef.current.scrollHeight;
-      setMaxH(`${sh}px`);
-    } else {
-      setMaxH("0px");
-    }
-  }, [isOpen]);
-
   return (
     <div
-      className={`w-full font-minecraft  bg-[#474747] border border-[#888] shadow-black-lg p-4 relative
-      border-l-black border-l-[2px]
-      border-b-black border-b-[2px]
-        transition-all duration-300 ease-in-out transform ${isOpen ? "scale-105 z-20" : "scale-100"}
-        self-start`} 
+      className="w-full cursor-pointer self-start group"
+      style={{ perspective: "1000px" }}
+      onClick={onToggle}
     >
-      <div>
-        <p className="font-minecraft text-[11px] md:text-[12px] text-white leading-[20px] tracking-[0.5px]">{question}</p>
-      </div>
-
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggle();
-        }}
-        aria-expanded={isOpen}
-        className={`absolute right-3 bottom-3 text-yellow-400 font-bold text-xl transition-transform
-          ${isOpen ? "rotate-45" : "rotate-0"}`}
+      <motion.div
+        className="relative w-full"
+        initial={false}
+        animate={{ rotateY: isOpen ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+        whileHover={{ scale: 1.02, y: -2 }}
+        style={{ transformStyle: "preserve-3d" }}
       >
-        +
-      </button>
+        {/* Front - Question */}
+        <div
+          className="w-full bg-[#474747] transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+          style={{
+            backfaceVisibility: "hidden",
+            border: "3px solid",
+            borderColor: "#888888 #1a1a1a #1a1a1a #666666",
+          }}
+        >
+          <div
+            className="bg-[#3a3a3a] p-5 md:p-6"
+            style={{
+              border: "2px solid",
+              borderColor: "#2a2a2a #555555 #555555 #2a2a2a",
+            }}
+          >
+            <p className="font-minecraft text-sm md:text-base text-white leading-relaxed tracking-wide">
+              {question}
+            </p>
+          </div>
+        </div>
 
-      <div
-        ref={contentRef}
-        className="mt-4 overflow-hidden transition-[max-height] duration-300 ease-in-out"
-        style={{ maxHeight: maxH }}
-      >
-        <p className="font-minecraft text-[11px] md:text-[12px] text-black-300 leading-[16px] tracking-[0.5px]">{answer}</p>
-      </div>
+        {/* Back - Answer */}
+        <div
+          className="w-full bg-[#474747] absolute top-0 left-0"
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            border: "3px solid",
+            borderColor: "#22d3ee #0e4a4a #0e4a4a #06b6d4",
+            boxShadow: "0 0 20px rgba(6, 182, 212, 0.4)",
+          }}
+        >
+          <div
+            className="bg-[#3a3a3a] p-5 md:p-6"
+            style={{
+              border: "2px solid",
+              borderColor: "#2a2a2a #555555 #555555 #2a2a2a",
+            }}
+          >
+            <p className="font-terminal text-sm md:text-base text-gray-300 leading-relaxed">
+              {answer}
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
