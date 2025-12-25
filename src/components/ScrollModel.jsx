@@ -14,8 +14,8 @@ function CreeperModel({ url }) {
   // --- CONFIGURATION ---
   const modelScale = 2;
   
-  // 1. Position: Bottom of the screen
-  const yPosition = -viewport.height / 2; 
+  // 1. Position: Bottom of the screen, adjusted upward to fit tighter in viewport
+  const yPosition = -viewport.height / 2 + 0.5; 
   
   // 2. Horizontal Movement Limits
   const startX = -viewport.width / 2 - 2; // Start far left
@@ -93,12 +93,12 @@ export default function ScrollModelContainer() {
       bottom: 0,
       left: 0,
       width: '100%',
-      height: '400px', 
+      height: '200px', 
       zIndex: 10,
       pointerEvents: 'none'
     }}>
       <Canvas 
-        camera={{ position: [0, 0, 20], fov: 30 }}
+        camera={{ position: [0, 0, 20], fov: 20 }}
         gl={{ alpha: true }} 
       >
         <ambientLight intensity={1.5} />
