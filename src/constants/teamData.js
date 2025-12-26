@@ -19,7 +19,7 @@ import jayaniImg from '../assets/coordinators/Jayni.webp';
 import ridhamImg from '../assets/coordinators/Ridham.webp';
 import purusharthImg from '../assets/coordinators/Purusharth Rana.webp';
 import vinitImg from '../assets/coordinators/Vinit.webp';
-import sreekarImg from '../assets/coordinators/sreekar.webp';
+import DeepuImg from '../assets/coordinators/Deepu.jpg';
 
 // Import faculty coordinator photos
 import directorImg from '../assets/coordinators/Director-iiitu.jpeg';
@@ -99,6 +99,6 @@ export const dayCoordinators = [
  * @type {Array<{name: string, role: string, image?: string}>}
  */
 export const departmentHeads = [
-    { name: 'Deepu', role: 'Decorations Head', image: sreekarImg },
+    { name: 'Deepu', role: 'Decorations Head', image: DeepuImg },
     { name: 'Vinit', role: 'Design Head', image: vinitImg },
 ];
